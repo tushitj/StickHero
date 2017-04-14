@@ -67,4 +67,13 @@ class GameScene: SKScene {
         
         gameOver = false
     }
+    func restart() {
+        
+        isBegin = false
+        isEnd = false
+        score = 0
+        nextLeftStartX = 0
+        removeAllChildren()
+        start()
+    }
 }
