@@ -284,4 +284,4 @@ private extension StickHeroGameScene {
         })
     }
     
-}
+}g
