@@ -16,6 +16,7 @@
 		17EDF46A1E98646C004E5934 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF4681E98646C004E5934 /* LaunchScreen.storyboard */; };
 		17EDF4751E98646C004E5934 /* project6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF4741E98646C004E5934 /* project6Tests.swift */; };
 		17EDF4801E98646C004E5934 /* project6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF47F1E98646C004E5934 /* project6UITests.swift */; };
+		C32EA0971E9AC60C007DE45D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32EA0961E9AC60C007DE45D /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		17EDF47B1E98646C004E5934 /* project6UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = project6UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EDF47F1E98646C004E5934 /* project6UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project6UITests.swift; sourceTree = "<group>"; };
 		17EDF4811E98646C004E5934 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C32EA0961E9AC60C007DE45D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32EA0971E9AC60C007DE45D /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +88,7 @@
 				17EDF4731E98646C004E5934 /* project6Tests */,
 				17EDF47E1E98646C004E5934 /* project6UITests */,
 				17EDF4571E98646C004E5934 /* Products */,
+				C32EA0951E9AC60C007DE45D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +133,14 @@
 				17EDF4811E98646C004E5934 /* Info.plist */,
 			);
 			path = project6UITests;
+			sourceTree = "<group>";
+		};
+		C32EA0951E9AC60C007DE45D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C32EA0961E9AC60C007DE45D /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,8 +211,12 @@
 				TargetAttributes = {
 					17EDF4551E98646C004E5934 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = T9NN4SW3G4;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					17EDF46F1E98646C004E5934 = {
 						CreatedOnToolsVersion = 8.3;
@@ -423,7 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T9NN4SW3G4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = project6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.binghamton.tjain3.project6;
@@ -436,7 +452,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T9NN4SW3G4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = project6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.binghamton.tjain3.project6;

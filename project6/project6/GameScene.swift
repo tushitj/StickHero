@@ -10,9 +10,9 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+   
     override func didMove(to view: SKView) {
+        start()
     }
     
     
@@ -47,5 +47,24 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func start() {
+        loadBackground()
+        loadScoreBackground()
+        loadScore()
+        loadTip()
+        loadGameOverLayer()
+        
+        leftStack = loadStacks(false, startLeftPoint: playAbleRect.origin.x)
+        self.removeMidTouch(false, left:true)
+        loadHero()
+        
+        let maxGap = Int(playAbleRect.width - StackMaxWidth - (leftStack?.frame.size.width)!)
+        
+        let gap = CGFloat(randomInRange(StackGapMinWidth...maxGap))
+        rightStack = loadStacks(false, startLeftPoint: nextLeftStartX + gap)
+        
+        gameOver = false
     }
 }

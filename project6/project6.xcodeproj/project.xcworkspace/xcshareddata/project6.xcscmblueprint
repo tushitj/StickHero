@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AF872298F30CA7A9BC5654C87988B7BE47653C11",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C2ABF713FC016B019142D136A24A779A7822DF59" : 9223372036854775807,
+    "AF872298F30CA7A9BC5654C87988B7BE47653C11" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C4FEA673-AD0A-4063-B9FD-FA55D2511DD5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C2ABF713FC016B019142D136A24A779A7822DF59" : "",
+    "AF872298F30CA7A9BC5654C87988B7BE47653C11" : "p06-jain_sharma\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "project6",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "project6\/project6.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/project6-tushAbhi\/p06-jain_sharma.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AF872298F30CA7A9BC5654C87988B7BE47653C11"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/tushitjain\/p06-jain_sharma.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C2ABF713FC016B019142D136A24A779A7822DF59"
+    }
+  ]
+}
