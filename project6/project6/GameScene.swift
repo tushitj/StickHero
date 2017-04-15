@@ -9,8 +9,40 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate  {
+    
+    let StackHeight:CGFloat = 400.0
+    let StackMaxWidth:CGFloat = 300.0
+    let StackMinWidth:CGFloat = 100.0
+    let gravity:CGFloat = -100.0
+    let StackGapMinWidth:Int = 80
+    let HeroSpeed:CGFloat = 760
+    
+    let StoreScoreName = "com.stickHero.score"
+    
+    var isBegin = false
+    var isEnd = false
+    var leftStack:SKShapeNode?
+    var rightStack:SKShapeNode?
+    
+    var nextLeftStartX:CGFloat = 0
+    var stickHeight:CGFloat = 0
+    
+    struct GAP {
+        static let XGAP:CGFloat = 20
+        static let YGAP:CGFloat = 4
+    }
    
+    var gameOver = false {
+        willSet {
+            if (newValue) {
+                checkHighScoreAndStore()
+                let gameOverLayer = childNode(withName: StickHeroGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+                gameOverLayer?.run(SKAction.moveDistance(CGVector(dx: 0, dy: 100), fadeInWithDuration: 0.2))
+            }
+            
+        }
+    }
     override func didMove(to view: SKView) {
         start()
     }
@@ -27,9 +59,77 @@ class GameScene: SKScene {
     func touchUp(atPoint pos : CGPoint) {
        
     }
+    var score:Int = 0 {
+        willSet {
+            let scoreBand = childNode(withName: StickHeroGameSceneChildName.ScoreName.rawValue) as? SKLabelNode
+            scoreBand?.text = "\(newValue)"
+            scoreBand?.run(SKAction.sequence([SKAction.scale(to: 1.5, duration: 0.1), SKAction.scale(to: 1, duration: 0.1)]))
+            
+            if (newValue == 1) {
+                let tip = childNode(withName: StickHeroGameSceneChildName.TipName.rawValue) as? SKLabelNode
+                tip?.run(SKAction.fadeAlpha(to: 0, duration: 0.4))
+            }
+        }
+    }
+    lazy var playAbleRect:CGRect = {
+        let maxAspectRatio:CGFloat = 16.0/9.0 // iPhone 5"
+        let maxAspectRatioWidth = self.size.height / maxAspectRatio
+        let playableMargin = (self.size.width - maxAspectRatioWidth) / 2.0
+        return CGRect(x: playableMargin, y: 0, width: maxAspectRatioWidth, height: self.size.height)
+    }()
     
+    lazy var walkAction:SKAction = {
+        var textures:[SKTexture] = []
+        for i in 0...1 {
+            let texture = SKTexture(imageNamed: "human\(i + 1).png")
+            textures.append(texture)
+        }
+        
+        let action = SKAction.animate(with: textures, timePerFrame: 0.15, resize: true, restore: true)
+        
+        return SKAction.repeatForever(action)
+    }()
+    
+    //MARK: - override
+    override init(size: CGSize) {
+        super.init(size: size)
+        anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        physicsWorld.contactDelegate = self
+    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        guard !gameOver else {
+            let gameOverLayer = childNode(withName: StickHeroGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+            
+            let location = touches.first?.location(in: gameOverLayer!)
+            let retry = gameOverLayer!.atPoint(location!)
+            
+            
+            if (retry.name == StickHeroGameSceneChildName.RetryButtonName.rawValue) {
+                retry.run(SKAction.sequence([SKAction.setTexture(SKTexture(imageNamed: "button_retry_down"), resize: false), SKAction.wait(forDuration: 0.3)]), completion: {[unowned self] () -> Void in
+                    self.restart()
+                })
+            }
+            return
+        }
+        
+        if !isBegin && !isEnd {
+            isBegin = true
+            
+            let stick = loadStick()
+            let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+            
+            let action = SKAction.resize(toHeight: CGFloat(DefinedScreenHeight - StackHeight), duration: 1.5)
+            stick.run(action, withKey:StickHeroGameSceneActionKey.StickGrowAction.rawValue)
+            
+            let scaleAction = SKAction.sequence([SKAction.scaleY(to: 0.9, duration: 0.05), SKAction.scaleY(to: 1, duration: 0.05)])
+            let loopAction = SKAction.group([SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.StickGrowAudioName.rawValue, waitForCompletion: true)])
+            stick.run(SKAction.repeatForever(loopAction), withKey: StickHeroGameSceneActionKey.StickGrowAudioAction.rawValue)
+            hero.run(SKAction.repeatForever(scaleAction), withKey: StickHeroGameSceneActionKey.HeroScaleAction.rawValue)
+            
+            return
+        }
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -37,8 +137,30 @@ class GameScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        if isBegin && !isEnd {
+            isEnd  = true
+            
+            let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+            hero.removeAction(forKey: StickHeroGameSceneActionKey.HeroScaleAction.rawValue)
+            hero.run(SKAction.scaleY(to: 1, duration: 0.04))
+            
+            let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+            stick.removeAction(forKey: StickHeroGameSceneActionKey.StickGrowAction.rawValue)
+            stick.removeAction(forKey: StickHeroGameSceneActionKey.StickGrowAudioAction.rawValue)
+            stick.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.StickGrowOverAudioName.rawValue, waitForCompletion: false))
+            
+            stickHeight = stick.size.height;
+            
+            let action = SKAction.rotate(toAngle: CGFloat(-M_PI / 2), duration: 0.4, shortestUnitArc: true)
+            let playFall = SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.StickFallAudioName.rawValue, waitForCompletion: false)
+            
+            stick.run(SKAction.sequence([SKAction.wait(forDuration: 0.2), action, playFall]), completion: {[unowned self] () -> Void in
+                self.heroGo(self.checkPass())
+            })
+        }
     }
+    
+
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
@@ -79,9 +201,156 @@ class GameScene: SKScene {
         removeAllChildren()
         start()
     }
+    fileprivate func checkPass() -> Bool {
+        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+        
+        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
+        
+        guard rightPoint < self.nextLeftStartX else {
+            return false
+        }
+        
+        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
+            return false
+        }
+        
+        self.checkTouchMidStack()
+        
+        return true
+    }
+    
+    fileprivate func checkTouchMidStack() {
+        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+        let stackMid = rightStack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
+        
+        let newPoint = stackMid.convert(CGPoint(x: -10, y: 10), to: self)
+        
+        if ((stick.position.x + self.stickHeight) >= newPoint.x  && (stick.position.x + self.stickHeight) <= newPoint.x + 20) {
+            loadPerfect()
+            self.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.StickTouchMidAudioName.rawValue, waitForCompletion: false))
+            score += 1
+        }
+        
+    }
+    
+    fileprivate func removeMidTouch(_ animate:Bool, left:Bool) {
+        let stack = left ? leftStack : rightStack
+        let mid = stack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
+        if (animate) {
+            mid.run(SKAction.fadeAlpha(to: 0, duration: 0.3))
+        }
+        else {
+            mid.removeFromParent()
+        }
+    }
+    
+    fileprivate func heroGo(_ pass:Bool) {
+        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        
+        guard pass else {
+            let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+            
+            let dis:CGFloat = stick.position.x + self.stickHeight
+            
+            let overGap = DefinedScreenWidth / 2 - abs(hero.position.x)
+            let disGap = nextLeftStartX - overGap - (rightStack?.frame.size.width)! / 2
+            
+            let move = SKAction.moveTo(x: dis, duration: TimeInterval(abs(disGap / HeroSpeed)))
+            
+            hero.run(walkAction, withKey: StickHeroGameSceneActionKey.WalkAction.rawValue)
+            hero.run(move, completion: {[unowned self] () -> Void in
+                stick.run(SKAction.rotate(toAngle: CGFloat(-M_PI), duration: 0.4))
+                
+                hero.physicsBody!.affectedByGravity = true
+                hero.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.DeadAudioName.rawValue, waitForCompletion: false))
+                hero.removeAction(forKey: StickHeroGameSceneActionKey.WalkAction.rawValue)
+                self.run(SKAction.wait(forDuration: 0.5), completion: {[unowned self] () -> Void in
+                    self.gameOver = true
+                })
+            })
+            
+            return
+        }
+        
+        let dis:CGFloat = nextLeftStartX - DefinedScreenWidth / 2 - hero.size.width / 2 - GAP.XGAP
+        
+        let overGap = DefinedScreenWidth / 2 - abs(hero.position.x)
+        let disGap = nextLeftStartX - overGap - (rightStack?.frame.size.width)! / 2
+        
+        let move = SKAction.moveTo(x: dis, duration: TimeInterval(abs(disGap / HeroSpeed)))
+        
+        hero.run(walkAction, withKey: StickHeroGameSceneActionKey.WalkAction.rawValue)
+        hero.run(move, completion: { [unowned self]() -> Void in
+            self.score += 1
+            
+            hero.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.VictoryAudioName.rawValue, waitForCompletion: false))
+            hero.removeAction(forKey: StickHeroGameSceneActionKey.WalkAction.rawValue)
+            self.moveStackAndCreateNew()
+        })
+    }
+    
+    fileprivate func checkHighScoreAndStore() {
+        let highScore = UserDefaults.standard.integer(forKey: StoreScoreName)
+        if (score > Int(highScore)) {
+            showHighScore()
+            
+            UserDefaults.standard.set(score, forKey: StoreScoreName)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    fileprivate func showHighScore() {
+        self.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.HighScoreAudioName.rawValue, waitForCompletion: false))
+        
+        let wait = SKAction.wait(forDuration: 0.4)
+        let grow = SKAction.scale(to: 1.5, duration: 0.4)
+        grow.timingMode = .easeInEaseOut
+        let explosion = starEmitterActionAtPosition(CGPoint(x: 0, y: 300))
+        let shrink = SKAction.scale(to: 1, duration: 0.2)
+        
+        let idleGrow = SKAction.scale(to: 1.2, duration: 0.4)
+        idleGrow.timingMode = .easeInEaseOut
+        let idleShrink = SKAction.scale(to: 1, duration: 0.4)
+        let pulsate = SKAction.repeatForever(SKAction.sequence([idleGrow, idleShrink]))
+        
+        let gameOverLayer = childNode(withName: StickHeroGameSceneChildName.GameOverLayerName.rawValue) as SKNode?
+        let highScoreLabel = gameOverLayer?.childNode(withName: StickHeroGameSceneChildName.HighScoreName.rawValue) as SKNode?
+        highScoreLabel?.run(SKAction.sequence([wait, explosion, grow, shrink]), completion: { () -> Void in
+            highScoreLabel?.run(pulsate)
+        })
+    }
+    
+    fileprivate func moveStackAndCreateNew() {
+        let action = SKAction.move(by: CGVector(dx: -nextLeftStartX + (rightStack?.frame.size.width)! + playAbleRect.origin.x - 2, dy: 0), duration: 0.3)
+        rightStack?.run(action)
+        self.removeMidTouch(true, left:false)
+        
+        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+        
+        hero.run(action)
+        stick.run(SKAction.group([SKAction.move(by: CGVector(dx: -DefinedScreenWidth, dy: 0), duration: 0.5), SKAction.fadeAlpha(to: 0, duration: 0.3)]), completion: { () -> Void in
+            stick.removeFromParent()
+        })
+        
+        leftStack?.run(SKAction.move(by: CGVector(dx: -DefinedScreenWidth, dy: 0), duration: 0.5), completion: {[unowned self] () -> Void in
+            self.leftStack?.removeFromParent()
+            
+            let maxGap = Int(self.playAbleRect.width - (self.rightStack?.frame.size.width)! - self.StackMaxWidth)
+            let gap = CGFloat(randomInRange(self.StackGapMinWidth...maxGap))
+            
+            self.leftStack = self.rightStack
+            self.rightStack = self.loadStacks(true, startLeftPoint:self.playAbleRect.origin.x + (self.rightStack?.frame.size.width)! + gap)
+        })
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 }
 //MARK: - load node
-private extension StickHeroGameScene {
+private extension GameScene {
     func loadBackground() {
         guard let _ = childNode(withName: "background") as! SKSpriteNode? else {
             let texture = SKTexture(image: UIImage(named: "stick_background.jpg")!)
