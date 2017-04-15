@@ -87,8 +87,6 @@ class GameScene: SKScene {
     }
 
     
-    func min(){}
-    func max(){}
     func restart() {
         
         isBegin = false
