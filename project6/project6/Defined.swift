@@ -32,3 +32,24 @@ enum StickHeroGameSceneActionKey: String {
     case StickGrowAction = "stick_grow"
     case HeroScaleAction = "hero_scale"
 }
+
+enum StickHeroGameSceneEffectAudioName: String {
+    case DeadAudioName = "dead.wav"
+    case StickGrowAudioName = "stick_grow_loop.wav"
+    case StickGrowOverAudioName = "kick.wav"
+    case StickFallAudioName = "fall.wav"
+    case StickTouchMidAudioName = "touch_mid.wav"
+    case VictoryAudioName = "victory.wav"
+    case HighScoreAudioName = "highScore.wav"
+}
+
+enum StickHeroGameSceneZposition: CGFloat {
+    case backgroundZposition = 0
+    case stackZposition = 30
+    case stackMidZposition = 35
+    case stickZposition = 40
+    case scoreBackgroundZposition = 50
+    case heroZposition, scoreZposition, tipZposition, perfectZposition = 100
+    case emitterZposition
+    case gameOverZposition
+}
