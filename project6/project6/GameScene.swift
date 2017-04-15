@@ -68,23 +68,6 @@ class GameScene: SKScene {
         gameOver = false
     }
     
-    fileprivate func checkPass() -> Bool {
-        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
-        
-        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
-        
-        guard rightPoint < self.nextLeftStartX else {
-            return false
-        }
-        
-        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
-            return false
-        }
-        
-        self.checkTouchMidStack()
-        
-        return true
-    }
 
     
     func restart() {
