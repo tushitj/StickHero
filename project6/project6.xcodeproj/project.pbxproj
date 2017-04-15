@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17A1ECCF1EA1AE68003D0951 /* Defined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1ECCE1EA1AE68003D0951 /* Defined.swift */; };
+		17A1ECD11EA1B5CA003D0951 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1ECD01EA1B5CA003D0951 /* Tools.swift */; };
 		17EDF45A1E98646C004E5934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF4591E98646C004E5934 /* AppDelegate.swift */; };
 		17EDF45C1E98646C004E5934 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF45B1E98646C004E5934 /* GameScene.sks */; };
 		17EDF4601E98646C004E5934 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF45F1E98646C004E5934 /* GameScene.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		17A1ECCE1EA1AE68003D0951 /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defined.swift; sourceTree = "<group>"; };
+		17A1ECD01EA1B5CA003D0951 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		17EDF4561E98646C004E5934 /* project6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EDF4591E98646C004E5934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17EDF45B1E98646C004E5934 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				17EDF4681E98646C004E5934 /* LaunchScreen.storyboard */,
 				17EDF46B1E98646C004E5934 /* Info.plist */,
 				17A1ECCE1EA1AE68003D0951 /* Defined.swift */,
+				17A1ECD01EA1B5CA003D0951 /* Tools.swift */,
 			);
 			path = project6;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				17EDF4621E98646C004E5934 /* GameViewController.swift in Sources */,
 				17EDF45A1E98646C004E5934 /* AppDelegate.swift in Sources */,
 				17A1ECCF1EA1AE68003D0951 /* Defined.swift in Sources */,
+				17A1ECD11EA1B5CA003D0951 /* Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
