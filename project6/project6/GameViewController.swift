@@ -16,25 +16,20 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
             
-            view.ignoresSiblingOrder = true
-            
+            let scene = GameScene(size:CGSize(width: DefinedScreenWidth, height: DefinedScreenHeight))
+            let skView = self.view as! SKView
+            skView.ignoresSiblingOrder = true
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
             //view.showsFPS = true
             //view.showsNodeCount = true
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         musicPlayer = setupAudioPlayerWithFile("bg_country", type: "mp3")
         musicPlayer.numberOfLoops = -1
         musicPlayer.play()
@@ -52,11 +47,12 @@ class GameViewController: UIViewController {
         
         return audioPlayer!
     }
-    override var shouldAutorotate: Bool {
+    
+    override var shouldAutorotate : Bool {
         return true
     }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         return .portrait
     }
 
@@ -65,7 +61,7 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override var prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }
