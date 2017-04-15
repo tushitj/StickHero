@@ -87,7 +87,7 @@ class GameScene: SKScene {
     }
 
     
-    
+    func min(){}
     func restart() {
         
         isBegin = false
@@ -284,4 +284,4 @@ private extension StickHeroGameScene {
         })
     }
     
-}g
+}
