@@ -25,6 +25,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var leftStack:SKShapeNode?
     var rightStack:SKShapeNode?
     
+    
+    var playerlife : SKSpriteNode = SKSpriteNode()
+    var lifeLabel : SKLabelNode = SKLabelNode()
+    
     var nextLeftStartX:CGFloat = 0
     var stickHeight:CGFloat = 0
     
@@ -90,7 +94,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         return SKAction.repeatForever(action)
     }()
     
-    //MARK: - override
     override init(size: CGSize) {
         super.init(size: size)
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -151,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             stickHeight = stick.size.height;
             
-            let action = SKAction.rotate(toAngle: CGFloat(-M_PI / 2), duration: 0.4, shortestUnitArc: true)
+            let action = SKAction.rotate(toAngle: CGFloat(-CGFloat.pi / 2), duration: 0.4, shortestUnitArc: true)
             let playFall = SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.StickFallAudioName.rawValue, waitForCompletion: false)
             
             stick.run(SKAction.sequence([SKAction.wait(forDuration: 0.2), action, playFall]), completion: {[unowned self] () -> Void in
@@ -178,9 +181,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         loadTip()
         loadGameOverLayer()
         
+        
         leftStack = loadStacks(false, startLeftPoint: playAbleRect.origin.x)
         self.removeMidTouch(false, left:true)
         loadHero()
+        
         
         let maxGap = Int(playAbleRect.width - StackMaxWidth - (leftStack?.frame.size.width)!)
         
@@ -201,18 +206,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         removeAllChildren()
         start()
     }
+    func loadLife(){
+        playerlife = SKSpriteNode(imageNamed: "human")
+        playerlife.setScale(0.10)
+        //playerlife.zRotation = CGFloat(-M_PI/2)
+        playerlife.position = CGPoint(x: 0, y: DefinedScreenHeight / 2 - 100)//CGPoint(x: 10, y: 0)
+        
+        lifeLabel = SKLabelNode(fontNamed : "Cochin")
+        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        let lifeLeft:String = String(hero.userData?["life"]! as! Int)
+        lifeLabel.text = "x " + lifeLeft
+        lifeLabel.fontSize = 17
+        lifeLabel.fontColor = .white
+        lifeLabel.position = CGPoint(x: playerlife.position.x + 40 ,  DefinedScreenHeight / 2 - 100)
+        self.addChild(lifeLabel)
+        self.addChild(playerlife)
+        
+    }
     fileprivate func checkPass() -> Bool {
         let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
         
         let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
+        
+        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        var lifeLeft = hero.userData?["life"]! as! Int
+        if lifeLeft > 0
+        {
+            lifeLeft -= 1
+            hero.userData?.setValue(lifeLeft, forKey: "life")
+            return true
+        }
         
         guard rightPoint < self.nextLeftStartX else {
             return false
         }
         
         guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
+            
             return false
         }
+//        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+//        var lifeLeft = hero.userData?["life"]! as! Int
+//        if lifeLeft > 0
+//        {
+//            lifeLeft -= 1
+//            hero.userData?.setValue(lifeLeft, forKey: "life")
+//            return true
+//        }
         
         self.checkTouchMidStack()
         
@@ -259,7 +299,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             hero.run(walkAction, withKey: StickHeroGameSceneActionKey.WalkAction.rawValue)
             hero.run(move, completion: {[unowned self] () -> Void in
-                stick.run(SKAction.rotate(toAngle: CGFloat(-M_PI), duration: 0.4))
+                stick.run(SKAction.rotate(toAngle: CGFloat(-CGFloat.pi), duration: 0.4))
                 
                 hero.physicsBody!.affectedByGravity = true
                 hero.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.DeadAudioName.rawValue, waitForCompletion: false))
@@ -396,8 +436,12 @@ private extension GameScene {
         hero.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 18))
         hero.physicsBody?.affectedByGravity = false
         hero.physicsBody?.allowsRotation = false
+        hero.userData = NSMutableDictionary()
+        hero.userData?.setValue(3, forKey: "life")
+        
         
         addChild(hero)
+        loadLife()
     }
     
     func loadTip() {
