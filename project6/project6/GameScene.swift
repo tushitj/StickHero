@@ -223,42 +223,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         self.addChild(playerlife)
         
     }
-    fileprivate func checkPass() -> Bool {
-        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
-        
-        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
-        
-        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
-        var lifeLeft = hero.userData?["life"]! as! Int
-        if lifeLeft > 0
-        {
-            lifeLeft -= 1
-            hero.userData?.setValue(lifeLeft, forKey: "life")
-            return true
-        }
-        
-        guard rightPoint < self.nextLeftStartX else {
-            return false
-        }
-        
-        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
-            
-            return false
-        }
-//        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
-//        var lifeLeft = hero.userData?["life"]! as! Int
-//        if lifeLeft > 0
-//        {
-//            lifeLeft -= 1
-//            hero.userData?.setValue(lifeLeft, forKey: "life")
-//            return true
-//        }
-        
-        self.checkTouchMidStack()
-        
-        return true
-    }
-    
+
     fileprivate func checkTouchMidStack() {
         let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
         let stackMid = rightStack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
