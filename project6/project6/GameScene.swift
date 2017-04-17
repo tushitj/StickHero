@@ -218,12 +218,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         lifeLabel.text = "x " + lifeLeft
         lifeLabel.fontSize = 17
         lifeLabel.fontColor = .white
-        lifeLabel.position = CGPoint(x: playerlife.position.x + 40 ,  DefinedScreenHeight / 2 - 100)
+        lifeLabel.position = CGPoint(x: 40 , y: DefinedScreenHeight / 2 - 100)
         self.addChild(lifeLabel)
         self.addChild(playerlife)
         
     }
+<<<<<<< HEAD
 
+=======
+    fileprivate func checkPass() -> Bool {
+        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+        
+        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
+        
+        let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        var lifeLeft = hero.userData?["life"]! as! Int
+        if lifeLeft > 0
+        {
+            lifeLeft -= 1
+            hero.userData?.setValue(lifeLeft, forKey: "life")
+            return true
+        }
+        
+        guard rightPoint < self.nextLeftStartX else {
+            return false
+        }
+        
+        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
+            
+            return false
+        }
+
+        
+        self.checkTouchMidStack()
+        
+        return true
+    }
+    
+>>>>>>> 28fae7aebb482378c6e006cf14f3e5b946f11321
     fileprivate func checkTouchMidStack() {
         let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
         let stackMid = rightStack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
@@ -238,24 +270,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
     }
     
-    fileprivate func checkPass() -> Bool {
-        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
-        
-        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
-        
-        guard rightPoint < self.nextLeftStartX else {
-            return false
-        }
-        
-        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
-            return false
-        }
-        
-        self.checkTouchMidStack()
-        
-        return true
-    }
-    
+
 
     fileprivate func heroGo(_ pass:Bool) {
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
@@ -324,7 +339,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             UserDefaults.standard.synchronize()
         }
     }
-    
+
     fileprivate func showHighScore() {
         self.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.HighScoreAudioName.rawValue, waitForCompletion: false))
         
@@ -368,7 +383,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             self.leftStack = self.rightStack
             self.rightStack = self.loadStacks(true, startLeftPoint:self.playAbleRect.origin.x + (self.rightStack?.frame.size.width)! + gap)
         })
-    }
+   }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
