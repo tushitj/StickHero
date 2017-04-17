@@ -215,17 +215,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
     }
     
-    fileprivate func removeMidTouch(_ animate:Bool, left:Bool) {
-        let stack = left ? leftStack : rightStack
-        let mid = stack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
-        if (animate) {
-            mid.run(SKAction.fadeAlpha(to: 0, duration: 0.3))
+    fileprivate func checkPass() -> Bool {
+        let stick = childNode(withName: StickHeroGameSceneChildName.StickName.rawValue) as! SKSpriteNode
+        
+        let rightPoint = DefinedScreenWidth / 2 + stick.position.x + self.stickHeight
+        
+        guard rightPoint < self.nextLeftStartX else {
+            return false
         }
-        else {
-            mid.removeFromParent()
+        
+        guard ((leftStack?.frame)!.intersects(stick.frame) && (rightStack?.frame)!.intersects(stick.frame)) else {
+            return false
         }
+        
+        self.checkTouchMidStack()
+        
+        return true
     }
     
+
     fileprivate func heroGo(_ pass:Bool) {
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
         
@@ -270,6 +278,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             self.moveStackAndCreateNew()
         })
     }
+    
+    
+    fileprivate func removeMidTouch(_ animate:Bool, left:Bool) {
+        let stack = left ? leftStack : rightStack
+        let mid = stack!.childNode(withName: StickHeroGameSceneChildName.StackMidName.rawValue) as! SKShapeNode
+        if (animate) {
+            mid.run(SKAction.fadeAlpha(to: 0, duration: 0.3))
+        }
+        else {
+            mid.removeFromParent()
+        }
+    }
+    
     
     fileprivate func checkHighScoreAndStore() {
         let highScore = UserDefaults.standard.integer(forKey: StoreScoreName)
