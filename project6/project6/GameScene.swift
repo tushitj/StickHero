@@ -352,10 +352,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 //MARK: - load node
 private extension GameScene {
     func loadBackground() {
+        //scene.size = skView.bounds.size
         guard let _ = childNode(withName: "background") as! SKSpriteNode? else {
             let texture = SKTexture(image: UIImage(named: "stick_background.jpg")!)
             let node = SKSpriteNode(texture: texture)
-            node.size = texture.size()
+            node.size = self.size//texture.size()
             node.zPosition = StickHeroGameSceneZposition.backgroundZposition.rawValue
             self.physicsWorld.gravity = CGVector(dx: 0, dy: gravity)
             
@@ -441,7 +442,7 @@ private extension GameScene {
     func loadStick() -> SKSpriteNode {
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
         
-        let stick = SKSpriteNode(color: SKColor.black, size: CGSize(width: 12, height: 1))
+        let stick = SKSpriteNode(color: .black, size: CGSize(width: 12, height: 1))
         stick.zPosition = StickHeroGameSceneZposition.stickZposition.rawValue
         stick.name = StickHeroGameSceneChildName.StickName.rawValue
         stick.anchorPoint = CGPoint(x: 0.5, y: 0);
@@ -457,8 +458,8 @@ private extension GameScene {
         let width:CGFloat = CGFloat(randomInRange(min...max) * 10)
         let height:CGFloat = StackHeight
         let stack = SKShapeNode(rectOf: CGSize(width: width, height: height))
-        stack.fillColor = SKColor.black
-        stack.strokeColor = SKColor.black
+        stack.fillColor = .black
+        stack.strokeColor = .black
         stack.zPosition = StickHeroGameSceneZposition.stackZposition.rawValue
         stack.name = StickHeroGameSceneChildName.StackName.rawValue
         
