@@ -392,8 +392,25 @@ private extension GameScene {
             lifeLeft -= 1
             hero.userData?.setValue(lifeLeft, forKey: "life")
             lifeLabel.text = "x "+String(lifeLeft)
+            let label = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+            label.name = StickHeroGameSceneChildName.TipName.rawValue
+            label.text = "life -1"
+            label.position = CGPoint(x: 0, y: DefinedScreenHeight / 2 - 550)
+            label.fontColor = SKColor.black
+            label.fontSize = 65
+            label.zPosition = StickHeroGameSceneZposition.tipZposition.rawValue
+            label.horizontalAlignmentMode = .center
+            
+            addChild(label)
+            
+            
+            let waitAction = SKAction.wait(forDuration: 1.2)
+            let removeAction = SKAction.removeFromParent()
+            label.run(SKAction.sequence([waitAction,removeAction]))
             return true
+            
         }
+                
         return false
     }
     func loadScore() {
@@ -520,8 +537,8 @@ private extension GameScene {
         addChild(stack)
         
         let mid = SKShapeNode(rectOf: CGSize(width: 20, height: 20))
-        mid.fillColor = SKColor.red
-        mid.strokeColor = SKColor.red
+        mid.fillColor = SKColor.green
+        mid.strokeColor = SKColor.green
         mid.zPosition = StickHeroGameSceneZposition.stackMidZposition.rawValue
         mid.name = StickHeroGameSceneChildName.StackMidName.rawValue
         //mid.position = CGPoint(x: 0, y: height / 2 - 20 / 2)
