@@ -22,8 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     var isBegin = false
     var isEnd = false
-    var leftStack:SKShapeNode?
-    var rightStack:SKShapeNode?
+    var leftStack:SKSpriteNode?
+    var rightStack:SKSpriteNode?
     
     
     var playerlife : SKSpriteNode = SKSpriteNode()
@@ -482,7 +482,7 @@ private extension GameScene {
     func loadStick() -> SKSpriteNode {
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
         
-        let stick = SKSpriteNode(color: .black, size: CGSize(width: 12, height: 1))
+        let stick = SKSpriteNode(color: .brown, size: CGSize(width: 12, height: 1))
         stick.zPosition = StickHeroGameSceneZposition.stickZposition.rawValue
         stick.name = StickHeroGameSceneChildName.StickName.rawValue
         stick.anchorPoint = CGPoint(x: 0.5, y: 0);
@@ -492,14 +492,16 @@ private extension GameScene {
         return stick
     }
     //platform
-    func loadStacks(_ animate: Bool, startLeftPoint: CGFloat) -> SKShapeNode {
+    func loadStacks(_ animate: Bool, startLeftPoint: CGFloat) -> SKSpriteNode {
         let max:Int = Int(StackMaxWidth / 10)
         let min:Int = Int(StackMinWidth / 10)
         let width:CGFloat = CGFloat(randomInRange(min...max) * 10)
         let height:CGFloat = StackHeight
-        let stack = SKShapeNode(rectOf: CGSize(width: width, height: height))
-        stack.fillColor = .black
-        stack.strokeColor = .black
+        //let stack = SKShapeNode(rectOf: CGSize(width: width, height: height))
+        let stack = SKSpriteNode(imageNamed: "stack1.png")
+        stack.size = CGSize(width: width, height: height)
+        // stack.fillColor = .black
+       // stack.strokeColor = .black
         stack.zPosition = StickHeroGameSceneZposition.stackZposition.rawValue
         stack.name = StickHeroGameSceneChildName.StackName.rawValue
         
@@ -522,6 +524,7 @@ private extension GameScene {
         mid.strokeColor = SKColor.red
         mid.zPosition = StickHeroGameSceneZposition.stackMidZposition.rawValue
         mid.name = StickHeroGameSceneChildName.StackMidName.rawValue
+        //mid.position = CGPoint(x: 0, y: height / 2 - 20 / 2)
         mid.position = CGPoint(x: 0, y: height / 2 - 20 / 2)
         stack.addChild(mid)
         

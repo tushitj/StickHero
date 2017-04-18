@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		17A1ECCF1EA1AE68003D0951 /* Defined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1ECCE1EA1AE68003D0951 /* Defined.swift */; };
 		17A1ECD11EA1B5CA003D0951 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1ECD01EA1B5CA003D0951 /* Tools.swift */; };
+		17B789CA1EA5AE8000272B89 /* stack1.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B789C91EA5AE8000272B89 /* stack1.png */; };
 		17EDF45A1E98646C004E5934 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF4591E98646C004E5934 /* AppDelegate.swift */; };
 		17EDF45C1E98646C004E5934 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 17EDF45B1E98646C004E5934 /* GameScene.sks */; };
 		17EDF4601E98646C004E5934 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF45F1E98646C004E5934 /* GameScene.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		17A1ECCE1EA1AE68003D0951 /* Defined.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defined.swift; sourceTree = "<group>"; };
 		17A1ECD01EA1B5CA003D0951 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		17B789C91EA5AE8000272B89 /* stack1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stack1.png; sourceTree = "<group>"; };
 		17EDF4561E98646C004E5934 /* project6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EDF4591E98646C004E5934 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17EDF45B1E98646C004E5934 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		C3DE33091EA1AE84001EE41E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				17B789C91EA5AE8000272B89 /* stack1.png */,
 				C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */,
 				C3DE330A1EA1AEB4001EE41E /* button_retry_down.png */,
 				C3DE330B1EA1AEB4001EE41E /* button_retry_up.png */,
@@ -338,6 +341,7 @@
 				C3DE330F1EA1AEB4001EE41E /* button_retry_down.png in Resources */,
 				C3DE331D1EA1C451001EE41E /* bg_country.mp3 in Resources */,
 				C383F2F71EA2E7B500D41BA1 /* stick_background.jpg in Resources */,
+				17B789CA1EA5AE8000272B89 /* stack1.png in Resources */,
 				17EDF46A1E98646C004E5934 /* LaunchScreen.storyboard in Resources */,
 				C3DE331E1EA1C451001EE41E /* dead.wav in Resources */,
 				C3DE33201EA1C451001EE41E /* highScore.wav in Resources */,
