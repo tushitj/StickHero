@@ -200,13 +200,13 @@
 		C3DE33091EA1AE84001EE41E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				17B789CB1EA5BC6400272B89 /* backImage1.jpg */,
+				17B789C91EA5AE8000272B89 /* stack1.png */,
+				C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */,
 				C3B8E0FF1EA5BFFF00739945 /* player4.png */,
 				C3B8E1001EA5BFFF00739945 /* player3.png */,
 				C3B8E1011EA5BFFF00739945 /* player2.png */,
 				C3B8E1021EA5BFFF00739945 /* player1.png */,
-				17B789CB1EA5BC6400272B89 /* backImage1.jpg */,
-				17B789C91EA5AE8000272B89 /* stack1.png */,
-				C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */,
 				C3DE330A1EA1AEB4001EE41E /* button_retry_down.png */,
 				C3DE330B1EA1AEB4001EE41E /* button_retry_up.png */,
 				C3DE330C1EA1AEB4001EE41E /* stick_background1.jpg */,

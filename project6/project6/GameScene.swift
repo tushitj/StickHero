@@ -386,6 +386,7 @@ private extension GameScene {
     }
     func reducelife() -> Bool{
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode
+        hero.run(SKAction.playSoundFileNamed(StickHeroGameSceneEffectAudioName.DeadAudioName.rawValue, waitForCompletion: false))
         var lifeLeft = hero.userData?["life"]! as! Int
         if lifeLeft > 0
         {
