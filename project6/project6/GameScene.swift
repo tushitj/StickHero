@@ -84,8 +84,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     lazy var walkAction:SKAction = {
         var textures:[SKTexture] = []
-        for i in 0...1 {
-            let texture = SKTexture(imageNamed: "human\(i + 1).png")
+        for i in 0...3 {
+            let texture = SKTexture(imageNamed: "player\(i + 1).png")
             textures.append(texture)
         }
         
@@ -435,7 +435,7 @@ private extension GameScene {
     }
     
     func loadHero() {
-        let hero = SKSpriteNode(imageNamed: "human1")
+        let hero = SKSpriteNode(imageNamed: "player1")
         hero.name = StickHeroGameSceneChildName.HeroName.rawValue
         let x:CGFloat = nextLeftStartX - DefinedScreenWidth / 2 - hero.size.width / 2 - GAP.XGAP
         let y:CGFloat = StackHeight + hero.size.height / 2 - DefinedScreenHeight / 2 - GAP.YGAP
@@ -553,7 +553,7 @@ private extension GameScene {
 
         
         
-        let playerlife = SKSpriteNode(imageNamed: "human1")
+        let playerlife = SKSpriteNode(imageNamed: "player1")
         playerlife.name = StickHeroGameSceneChildName.LifeLeft.rawValue
         //tip.text = "The Game"
         let hero = childNode(withName: StickHeroGameSceneChildName.HeroName.rawValue) as! SKSpriteNode

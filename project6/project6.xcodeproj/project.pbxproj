@@ -22,6 +22,10 @@
 		17EDF4801E98646C004E5934 /* project6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDF47F1E98646C004E5934 /* project6UITests.swift */; };
 		C32EA0971E9AC60C007DE45D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32EA0961E9AC60C007DE45D /* GameKit.framework */; };
 		C383F2F71EA2E7B500D41BA1 /* stick_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */; };
+		C3B8E1031EA5BFFF00739945 /* player4.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B8E0FF1EA5BFFF00739945 /* player4.png */; };
+		C3B8E1041EA5BFFF00739945 /* player3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B8E1001EA5BFFF00739945 /* player3.png */; };
+		C3B8E1051EA5BFFF00739945 /* player2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B8E1011EA5BFFF00739945 /* player2.png */; };
+		C3B8E1061EA5BFFF00739945 /* player1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B8E1021EA5BFFF00739945 /* player1.png */; };
 		C3DE330F1EA1AEB4001EE41E /* button_retry_down.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE330A1EA1AEB4001EE41E /* button_retry_down.png */; };
 		C3DE33101EA1AEB4001EE41E /* button_retry_up.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DE330B1EA1AEB4001EE41E /* button_retry_up.png */; };
 		C3DE33111EA1AEB4001EE41E /* stick_background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3DE330C1EA1AEB4001EE41E /* stick_background1.jpg */; };
@@ -78,6 +82,10 @@
 		17EDF4811E98646C004E5934 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C32EA0961E9AC60C007DE45D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = stick_background.jpg; sourceTree = "<group>"; };
+		C3B8E0FF1EA5BFFF00739945 /* player4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player4.png; sourceTree = "<group>"; };
+		C3B8E1001EA5BFFF00739945 /* player3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player3.png; sourceTree = "<group>"; };
+		C3B8E1011EA5BFFF00739945 /* player2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2.png; sourceTree = "<group>"; };
+		C3B8E1021EA5BFFF00739945 /* player1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player1.png; sourceTree = "<group>"; };
 		C3DE330A1EA1AEB4001EE41E /* button_retry_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_retry_down.png; sourceTree = "<group>"; };
 		C3DE330B1EA1AEB4001EE41E /* button_retry_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_retry_up.png; sourceTree = "<group>"; };
 		C3DE330C1EA1AEB4001EE41E /* stick_background1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = stick_background1.jpg; sourceTree = "<group>"; };
@@ -192,6 +200,10 @@
 		C3DE33091EA1AE84001EE41E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C3B8E0FF1EA5BFFF00739945 /* player4.png */,
+				C3B8E1001EA5BFFF00739945 /* player3.png */,
+				C3B8E1011EA5BFFF00739945 /* player2.png */,
+				C3B8E1021EA5BFFF00739945 /* player1.png */,
 				17B789CB1EA5BC6400272B89 /* backImage1.jpg */,
 				17B789C91EA5AE8000272B89 /* stack1.png */,
 				C383F2F61EA2E7B500D41BA1 /* stick_background.jpg */,
@@ -340,11 +352,13 @@
 				17EDF4671E98646C004E5934 /* Assets.xcassets in Resources */,
 				C3DE33281EA1C464001EE41E /* starParticle.png in Resources */,
 				C3DE33221EA1C451001EE41E /* stick_grow_loop.wav in Resources */,
+				C3B8E1041EA5BFFF00739945 /* player3.png in Resources */,
 				C3DE33231EA1C451001EE41E /* touch_mid.wav in Resources */,
 				C3DE331F1EA1C451001EE41E /* fall.wav in Resources */,
 				C3DE330F1EA1AEB4001EE41E /* button_retry_down.png in Resources */,
 				C3DE331D1EA1C451001EE41E /* bg_country.mp3 in Resources */,
 				C383F2F71EA2E7B500D41BA1 /* stick_background.jpg in Resources */,
+				C3B8E1061EA5BFFF00739945 /* player1.png in Resources */,
 				17B789CA1EA5AE8000272B89 /* stack1.png in Resources */,
 				17EDF46A1E98646C004E5934 /* LaunchScreen.storyboard in Resources */,
 				C3DE331E1EA1C451001EE41E /* dead.wav in Resources */,
@@ -354,6 +368,8 @@
 				C3DE33241EA1C451001EE41E /* victory.wav in Resources */,
 				C3DE33101EA1AEB4001EE41E /* button_retry_up.png in Resources */,
 				C3DE33111EA1AEB4001EE41E /* stick_background1.jpg in Resources */,
+				C3B8E1031EA5BFFF00739945 /* player4.png in Resources */,
+				C3B8E1051EA5BFFF00739945 /* player2.png in Resources */,
 				C3DE33121EA1AEB4001EE41E /* human1.png in Resources */,
 				C3DE33271EA1C464001EE41E /* StarExplosion.sks in Resources */,
 			);
