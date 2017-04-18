@@ -374,7 +374,7 @@ private extension GameScene {
     func loadBackground() {
         //scene.size = skView.bounds.size
         guard let _ = childNode(withName: "background") as! SKSpriteNode? else {
-            let texture = SKTexture(image: UIImage(named: "stick_background.jpg")!)
+            let texture = SKTexture(image: UIImage(named: "backImage1.jpg")!)
             let node = SKSpriteNode(texture: texture)
             node.size = self.size//texture.size()
             node.zPosition = StickHeroGameSceneZposition.backgroundZposition.rawValue
