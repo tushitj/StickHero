@@ -24,6 +24,7 @@ enum StickHeroGameSceneChildName : String {
     case GameOverLayerName = "over"
     case RetryButtonName = "retry"
     case HighScoreName = "highscore"
+    case LifeLeft = "lifeleft"
 }
 
 enum StickHeroGameSceneActionKey: String {
@@ -49,7 +50,7 @@ enum StickHeroGameSceneZposition: CGFloat {
     case stackMidZposition = 35
     case stickZposition = 40
     case scoreBackgroundZposition = 50
-    case heroZposition, scoreZposition, tipZposition, perfectZposition = 100
+    case heroZposition, scoreZposition, tipZposition, lifeLeft, perfectZposition = 100
     case emitterZposition
     case gameOverZposition
 }
