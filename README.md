@@ -1,6 +1,6 @@
 # StickHero
 
-Stretch the stick in order to reach and walk on the platforms. Watch out! If the stick is not long enough, you will fall down!
+Stretch the stick in order to reach and walk on the platform. Watch out! If the stick is not long enough, you will fall down!
 
 How far can you go?
 
